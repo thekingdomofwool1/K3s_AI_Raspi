@@ -1,0 +1,41 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP TITLE HERE</title>
+</head>
+<body>
+    <h1>WHAT DOES YOUR BUTTON DO</h1>
+    <form id="textForm">
+        <textarea id="inputText" rows="4" cols="50" placeholder="Enter text here..."></textarea><br>
+        <button type="submit">DESCRIBE THE ACTION YOU WANT THE BUTTON TO DO HERE</button>
+    </form>
+    <h2>OUTPUT OF WHATEVER THE BUTTON DOES HERE:</h2>
+    <p id="outputText"></p>
+
+    <script>
+        // Configuration - Change these values to customize the template
+        const API_ENDPOINT = '/translate'; // API endpoint to call (e.g., '/translate', '/summarize', etc.)
+        const REQUEST_PROPERTY = 'text'; // Property name for the request payload
+        const RESPONSE_PROPERTY = 'translatedText'; // Property name in the response to display
+
+        document.getElementById('textForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const inputText = document.getElementById('inputText').value;
+            
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ [REQUEST_PROPERTY]: inputText })
+            });
+
+            const result = await response.json();
+            document.getElementById('outputText').innerText = result[RESPONSE_PROPERTY];
+        });
+    </script>
+</body>
+</html>
