@@ -1,0 +1,52 @@
+# ============================================================================
+# KUBERNETES DEPLOYMENT TEMPLATE
+# ============================================================================
+# This template defines a Kubernetes Deployment that runs your application containers.
+# Replace the placeholder values with your specific application details.
+
+# NAMING CONVENTION:
+# - Use a consistent naming pattern: [app-name]-deployment
+# - Labels should match your application name for consistency
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: APP_NAME-deployment   # Replace APP_NAME with your application name
+  # You can add additional metadata like annotations here
+spec:
+  # Number of identical pods to run
+  replicas: 2  # Adjust based on your scaling needs
+  
+  # Selector defines how the Deployment finds which Pods to manage
+  selector:
+    matchLabels:                 
+      app: APP_NAME  # Replace APP_NAME with your application name
+      # This label tells the deployment which pods it should manage
+  
+  # Template for the pods that will be created by this deployment
+  template:
+    metadata:
+      labels:
+        app: APP_NAME  # Replace APP_NAME with your application name
+        # This label gets applied to any pods created by this deployment
+    spec:
+      containers:
+      - name: APP_NAME-container  # Replace APP_NAME with your application name
+        image: YOUR_REGISTRY/APP_NAME:TAG  # Replace with your container image
+        
+        # Environment variables for the container
+        env:
+          # This is how Kubernetes secrets are injected into the container
+          - name: OPENAI_API_KEY  # Replace with your API key name if different
+            valueFrom:
+              secretKeyRef:
+                name: openai-secret  # Replace with your secret name if different
+                key: OPENAI_API_KEY  # Replace with your secret key if different
+        
+        # Port(s) that the container exposes
+        ports:
+        - containerPort: 5000  # Replace with your application's port
+      
+      # Secrets needed to pull images from private registries
+      imagePullSecrets:
+      - name: regcred  # Replace with your registry credentials secret name if different
