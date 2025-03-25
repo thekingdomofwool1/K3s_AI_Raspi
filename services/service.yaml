@@ -1,0 +1,30 @@
+# ============================================================================
+# KUBERNETES SERVICE TEMPLATE
+# ============================================================================
+# This template defines a Kubernetes Service that exposes your application to network traffic.
+# Replace the placeholder values with your specific application details.
+
+# NAMING CONVENTION:
+# - Use a consistent naming pattern: [app-name]-service
+# - Selectors should match the labels used in your deployment
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: APP_NAME-service  #  Replace APP_NAME with your application name
+  # You can add additional metadata like annotations here
+spec:
+  # Service type determines how the service is exposed
+  type: NodePort  # Options include ClusterIP, NodePort, LoadBalancer
+  
+  # Selector specifies which pods this service will route traffic to
+  selector:
+    app: APP_NAME  # Replace APP_NAME with your application name (must match deployment labels)
+  
+  # Port configuration
+  ports:
+    - protocol: TCP  # The network protocol (usually TCP)
+      port: 80       # Port exposed by the service
+      targetPort: 5000  # Port your application listens on in the container
+      nodePort: 30000   # External port (only for NodePort type, 30000-32767 range)
+                        # Note: Not necessary if you are using a Cloudflare tunnel
