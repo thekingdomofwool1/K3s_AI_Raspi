@@ -15,7 +15,7 @@ metadata:
   # You can add additional metadata like annotations here
 spec:
   # Service type determines how the service is exposed
-  type: NodePort  # Options include ClusterIP, NodePort, LoadBalancer
+  type: NodePort  # Options include ClusterIP, NodePort, LoadBalancer. For this project use NodePort
   
   # Selector specifies which pods this service will route traffic to
   selector:
