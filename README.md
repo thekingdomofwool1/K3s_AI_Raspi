@@ -125,7 +125,7 @@ imagePullSecrets:
 
 ## Kubernetes
 
-In the folder titled Kubernetes I have templates of the manifests that I created to deploy this container. This includes the node port service to run it locally and a cloudflare tunnel to expose your app to the internet should you decide that that is a good idea.
+In the folders titled deployments, services and secrets I have templates of the manifests that I created to deploy this container. This includes the node port service to run it locally and a cloudflare tunnel to expose your app to the internet should you decide that that is a good idea.
 
 ## Deployment 
 
